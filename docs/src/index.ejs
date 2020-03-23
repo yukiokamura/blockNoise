@@ -11,10 +11,24 @@ var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta content="" name="description">
     <meta name="keywords" content="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css?<%=Math.random()%>">
     <script src='assets/js/lib.js' defer></script>
     <script src="assets/js/app.js?<%=Math.random()%>" defer></script>
   </head>
   <body>
+    <div class="canvas"></div>
+    <div class="info">
+      <p class="des">
+        <span>Three.js</span>
+        <span>GLSL</span>
+        <span>jQuery</span>
+      </p>
+      <div class="links">
+        <a href="https://github.com/yukiokamura/blockNoise/tree/master/docs" target="_blank">
+          <%- include('../dist/assets/svg/github.svg')%>
+        </a>
+      </div>
+    </div>
   </body>
 </html>

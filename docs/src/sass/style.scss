@@ -1,2 +1,39 @@
 @import "common/reset.scss";
 @import "common/common";
+
+html,
+body {
+  background: #2e2e2e;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .canvas,
+  canvas {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.info {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  .des {
+    span {
+      font-weight: 700;
+      font-family: "Roboto Condensed", sans-serif;
+      color: #fff;
+      letter-spacing: 0.05em;
+      font-size: 16px;
+    }
+  }
+  .links {
+    margin-top: 16px;
+    text-align: right;
+    svg {
+      height: 14px;
+      width: auto;
+      display: block;
+    }
+  }
+}
