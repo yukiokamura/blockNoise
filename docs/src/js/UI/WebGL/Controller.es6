@@ -3,6 +3,7 @@ import T_Base from "./Setup/Controller.es6";
 
 import Obj from "./Obj/Controller.es6";
 import Loader from "./Loader/TextureLoad.es6";
+import PostEffect from "./PostEffect/Controller.es6";
 
 export default class Controller extends Base {
   constructor() {
@@ -12,10 +13,14 @@ export default class Controller extends Base {
   init() {
     this.name = "WebGLController";
     this.T_base = new T_Base($(".canvas"));
-
-    this.loader = new Loader("./assets/png/img-01.png", texture => {
+    this.postEffect = new PostEffect();
+    this.tpp = new TPP(this.T_base.base.renderer, this.postEffect.postParams);
+    const img = config.imgs.filter(item => item.name == "opImg")[0];
+    this.loader = new Loader(img.src, texture => {
       this.obj = new Obj(texture);
       this.T_base.base.scene.add(this.obj.mesh);
+
+      this.postEffect.show();
     });
   }
 
@@ -31,7 +36,7 @@ export default class Controller extends Base {
 
   update() {
     if (this.obj) {
-      this.T_base.base.render();
+      this.T_base.base.render(true, this.tpp);
     }
   }
 }

@@ -21,7 +21,6 @@ export default class Controller extends Base {
       w: 1024 * 0.25,
       h: 1024 * 0.25 * 0.5
     };
-    console.log(this.texture);
     const uniform = {
       time: { value: 0.0, type: "f" },
       resolution: {

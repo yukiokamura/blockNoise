@@ -1,7 +1,6 @@
-
-import Stats from 'stats-js';
+import Stats from "stats-js";
 export default class ClassName {
-  constructor($dom,is_autoRender) {
+  constructor($dom, is_autoRender) {
     this.$dom = $dom;
     this.is_autoRender = is_autoRender;
     this.initScene();
@@ -9,31 +8,34 @@ export default class ClassName {
     this.initRender();
     this.stats = new Stats();
     this.stats.setMode(0);
-    this.stats.domElement.style.position = 'fixed';
-    this.stats.domElement.style.left = '0px';
-    this.stats.domElement.style.top = '0px';
-    document.body.appendChild( this.stats.domElement );
+    this.stats.domElement.style.position = "fixed";
+    this.stats.domElement.style.left = "0px";
+    this.stats.domElement.style.top = "0px";
+    document.body.appendChild(this.stats.domElement);
     this.render();
   }
 
-  initScene(){
+  initScene() {
     this.scene = new THREE.Scene();
   }
 
-  initCamera(){
+  initCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      45,this.$dom.width() /this.$dom.height(),1,20000
+      45,
+      this.$dom.width() / this.$dom.height(),
+      1,
+      20000
     );
     this.setCameraByPixel();
   }
 
-  setCameraByPixel(){
+  setCameraByPixel() {
     this.w = this.$dom.width();
     this.h = this.$dom.height();
     var fov = 45;
     var vFOV = fov * (Math.PI / 180);
     var vpHeight = this.h;
-    var z = vpHeight / (2 * Math.tan(vFOV / 2) );
+    var z = vpHeight / (2 * Math.tan(vFOV / 2));
     this.z = z;
     this.camera.position.set(0, 0, z);
     this.camera.lookAt(new THREE.Vector3());
@@ -43,27 +45,32 @@ export default class ClassName {
     this.camera.updateProjectionMatrix();
   }
 
-  initRender(){
+  initRender() {
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: true,
+      alpha: true
     });
     this.onWindowResize(true);
     this.$dom.append(this.renderer.domElement);
   }
 
-  onWindowResize(){
+  onWindowResize() {
     const w = this.$dom.width();
     const h = this.$dom.height();
     this.renderer.setPixelRatio(window.devicePixelRatio);
-    this.renderer.setSize(w,h);
+    this.renderer.setSize(w, h);
     this.setCameraByPixel();
   }
 
-  render(){
+  render(is_postEffect = false, tpp) {
     this.stats.begin();
-    this.renderer.render(this.scene,this.camera);
-    if(this.is_autoRender){
+    if (is_postEffect) {
+      tpp.render(this.scene, this.camera);
+    } else {
+      this.renderer.render(this.scene, this.camera);
+    }
+    // this.renderer.render(this.scene, this.camera);
+    if (this.is_autoRender) {
       requestAnimationFrame(this.render.bind(this));
     }
     this.stats.end();
